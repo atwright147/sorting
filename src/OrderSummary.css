@@ -1,0 +1,28 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+thead tr {
+  background-color: #333;
+  color: white;
+}
+
+tbody tr:nth-child(even) {
+  background-color: hsl(0, 0%, 95%);
+}
+
+tbody tr:nth-child(even):hover {
+  background-color: hsl(0, 0%, 90%);
+}
+
+tbody tr:nth-child(odd):hover {
+  background-color: hsl(0, 0%, 90%);
+}
