@@ -5,7 +5,14 @@ export const fetchData = async (url) => {
   return response.json();
 };
 
-export const sortData = (data, key) => {
+export const sortData = (data, key = 'quantity') => {
   // Sort data here
-  return data.sort((a, b) => a.category.localeCompare(b.category) || a.itemName.localeCompare(b.itemName));
+
+  const sorted = data.sort(
+    (a, b) =>
+      Number(a[key]) - Number(b[key]) &&
+      ( a.category.localeCompare(b.category) || a.itemName.localeCompare(b.itemName) )
+  );
+
+  return sorted;
 };
