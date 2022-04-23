@@ -19,7 +19,7 @@ describe('sort', () => {
       ];
     });
 
-    fdescribe('given sort key is "clicks"', () => {
+    describe('given sort key is "clicks"', () => {
       it('should sort the data by "clicks"', () => {
         const expected = [
           { "category": "$total", "itemName": "$total", "clicks": 160, "quantity": 18, "amount": 702 },
@@ -34,10 +34,6 @@ describe('sort', () => {
           { "category": "Household", "itemName": "Toothbrush", "clicks": 4, "quantity": 4, "amount": 12 },
         ];
 
-        console.info('ACTUAL');
-        console.table(sortData(mockData, 'clicks'));
-        console.info('EXPECTED');
-        console.table(expected);
         expect(sortData(mockData, 'clicks')).toEqual(expected);
       });
     });
