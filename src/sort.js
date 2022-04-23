@@ -7,25 +7,44 @@ export const fetchData = async (url) => {
 
 // return Number(a[key]) - Number(b[key]) && (a.category.localeCompare(b.category) || a.itemName.localeCompare(b.itemName))
 
-export const sortData = (data, key = 'quantity') => {
+export const sortData = (dataToSort, key = 'quantity') => {
+  const TOTAL_INDICATOR = '$total';
+
   // Sort data here
+  const categoryTotals = {};
+  dataToSort
+    .filter((item) => item.category !== TOTAL_INDICATOR && item.itemName === TOTAL_INDICATOR)
+    .forEach((item) => categoryTotals[item.category] = item[key]);
 
-  const sorted = data.sort(
-    (a, b) => {
-      if (a.category > b.category) return 1
-      if (a.category < b.category) return -1
-
-      if (a.category === b.category) {
-        if (Number(a.clicks) > Number(b.clicks)) return -1
-        if (Number(a.clicks) < Number(b.clicks)) return 1
+  const sorted = dataToSort.sort((a, b) => {
+    if (a.category !== b.category) {
+      if (a.category === TOTAL_INDICATOR) {
+        return -1;
+      } else if (b.category === TOTAL_INDICATOR) {
+        return 1;
+      } else if (categoryTotals[a.category] > categoryTotals[b.category]) {
+        return -1;
+      } else {
+        return 1;
       }
-
-      if (a.itemName > b.itemName) return 1
-      if (a.itemName < b.itemName) return -1
-
-      return 0
     }
-  );
+
+    if (a.itemName !== b.itemName) {
+      if (a.itemName === TOTAL_INDICATOR) {
+        return -1;
+      } else if (b.itemName === TOTAL_INDICATOR) {
+        return 1;
+      }
+    }
+
+    if (a[key] < b[key]) {
+      return 1;
+    } else if (a[key] === b[key]) {
+      return 0;
+    } else {
+      return -1;
+    }
+  });
 
   return sorted;
 };
