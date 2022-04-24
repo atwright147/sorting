@@ -5,8 +5,6 @@ export const fetchData = async (url) => {
   return response.json();
 };
 
-// return Number(a[key]) - Number(b[key]) && (a.category.localeCompare(b.category) || a.itemName.localeCompare(b.itemName))
-
 export const sortData = (dataToSort, key = 'quantity') => {
   const TOTAL_INDICATOR = '$total';
 
