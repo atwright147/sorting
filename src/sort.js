@@ -5,8 +5,23 @@ export const fetchData = async (url) => {
   return response.json();
 };
 
-export const sortData = (dataToSort, key = 'quantity') => {
+export const compare = (a, b, direction) => {
+  if (direction === 'asc') {
+    return a < b;
+  }
+  return a > b;
+};
+
+export const sortData = (dataToSort, key = 'quantity', direction = 'desc') => {
   const TOTAL_INDICATOR = '$total';
+
+  let UP = 1;
+  let DOWN = -1;
+
+  if (direction === 'asc') {
+    UP = -1;
+    DOWN = 1;
+  }
 
   // Sort data here
   const categoryTotals = {};
@@ -20,10 +35,11 @@ export const sortData = (dataToSort, key = 'quantity') => {
         return -1;
       } else if (b.category === TOTAL_INDICATOR) {
         return 1;
-      } else if (categoryTotals[a.category] > categoryTotals[b.category]) {
-        return -1;
+      // } else if (categoryTotals[a.category] > categoryTotals[b.category]) {
+      } else if (compare(categoryTotals[a.category], categoryTotals[b.category], direction)) {
+        return DOWN;
       } else {
-        return 1;
+        return UP;
       }
     }
 
@@ -36,11 +52,11 @@ export const sortData = (dataToSort, key = 'quantity') => {
     }
 
     if (a[key] < b[key]) {
-      return 1;
+      return UP;
     } else if (a[key] === b[key]) {
       return 0;
     } else {
-      return -1;
+      return DOWN;
     }
   });
 
