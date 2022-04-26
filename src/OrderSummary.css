@@ -28,14 +28,11 @@ tbody tr:nth-child(odd):hover {
   background-color: hsl(0, 0%, 90%);
 }
 
-.sortable {
-  cursor: pointer;
-}
-
 .disguised {
   border: 0;
   background-color: transparent;
   color: white;
+  cursor: pointer;
   font-family: inherit;
   font-size: inherit;
   font-weight: inherit;

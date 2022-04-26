@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import classNames from 'classnames';
 
 import { SortingIcon } from './components/SortingIcon/SortingIcon';
 import './OrderSummary.css';
@@ -20,14 +19,6 @@ export const OrderSummary = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const getClassNames = (key, direction) => {
-    return classNames({
-      sorted: sortKey === key,
-      'sort-icon-up': sortKey === key && direction,
-      'sort-icon-down': sortKey === key && !direction,
-    });
-  }
-
   const handleSortBy = (key) => {
     setSortKey(key);
     setIsDescending(!isDescending);
@@ -43,17 +34,17 @@ export const OrderSummary = () => {
           <tr>
             <th>Category</th>
             <th>Item Name</th>
-            <th className={classNames('sortable', getClassNames('clicks', isDescending))}>
+            <th>
               <button aria-label="Sort by clicks" className="disguised" onClick={() => handleSortBy('clicks')}>
                 Clicks <SortingIcon column="clicks" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
               </button>
             </th>
-            <th className={classNames('sortable', getClassNames('amount', isDescending))} >
+            <th>
               <button aria-label="Sort by amount" className="disguised" onClick={() => handleSortBy('amount')}>
                 Amount <SortingIcon column="amount" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
               </button>
             </th>
-            <th className={classNames('sortable', getClassNames('quantity', isDescending))}>
+            <th>
               <button aria-label="Sort by quantity" className="disguised" onClick={() => handleSortBy('quantity')}>
                 Quantity <SortingIcon column="quantity" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
               </button>
