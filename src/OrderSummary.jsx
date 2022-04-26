@@ -1,22 +1,35 @@
 import { useEffect, useState } from 'react';
+import classNames from 'classnames';
 
 import './OrderSummary.css';
 import { fetchData, sortData } from './sort';
 
 let data;
 
-export const OrderSummary = ({ sorted }) => {
+export const OrderSummary = () => {
   const [items, setItems] = useState([]);
+  const [sortKey, setSortKey] = useState('');
+  const [isDescending, setIsDescending] = useState(true);
 
   useEffect(() => {
-    fetchUsers();
-  });
+    (async () => {
+      data = await fetchData('https://mocki.io/v1/a7618665-b8e2-4304-91e5-e35b2ca5607d');
+      setItems(sortData(data, 'category'));
+    })();
+  }, []);
 
-  const fetchUsers = async () => {
-    data = await fetchData('https://mocki.io/v1/a7618665-b8e2-4304-91e5-e35b2ca5607d');
-    sorted = sortData(data, 'category');
+  const getClassNames = (key, direction) => {
+    return classNames({
+      sorted: sortKey === key,
+      'sort-icon-up': sortKey === key && direction,
+      'sort-icon-down': sortKey === key && !direction,
+    });
+  }
 
-    setItems(sorted);
+  const handleSortBy = (key) => {
+    setSortKey(key);
+    setIsDescending(!isDescending);
+    sortData(items, key, isDescending ? 'desc' : 'asc');
   };
 
   return (
@@ -28,9 +41,18 @@ export const OrderSummary = ({ sorted }) => {
           <tr>
             <th>Category</th>
             <th>Item Name</th>
-            <th>Clicks</th>
-            <th>Amount</th>
-            <th>Quantity</th>
+            <th
+              className={classNames('sortable', getClassNames('clicks', isDescending))}
+              onClick={() => handleSortBy('clicks')}
+            >Clicks</th>
+            <th
+              className={classNames('sortable', getClassNames('amount', isDescending))}
+              onClick={() => handleSortBy('amount')}
+            >Amount</th>
+            <th
+              className={classNames('sortable', getClassNames('quantity', isDescending))}
+              onClick={() => handleSortBy('quantity')}
+            >Quantity</th>
           </tr>
         </thead>
         <tbody>
