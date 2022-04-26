@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import classNames from 'classnames';
 
+import { SortingIcon } from './components/SortingIcon/SortingIcon';
 import './OrderSummary.css';
 import { fetchData, sortData } from './sort';
 
@@ -8,14 +9,15 @@ let data;
 
 export const OrderSummary = () => {
   const [items, setItems] = useState([]);
-  const [sortKey, setSortKey] = useState('');
+  const [sortKey, setSortKey] = useState('quantity');
   const [isDescending, setIsDescending] = useState(true);
 
   useEffect(() => {
     (async () => {
       data = await fetchData('https://mocki.io/v1/a7618665-b8e2-4304-91e5-e35b2ca5607d');
-      setItems(sortData(data, 'category'));
+      setItems(sortData(data, sortKey));
     })();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getClassNames = (key, direction) => {
@@ -44,15 +46,21 @@ export const OrderSummary = () => {
             <th
               className={classNames('sortable', getClassNames('clicks', isDescending))}
               onClick={() => handleSortBy('clicks')}
-            >Clicks</th>
+            >
+              Clicks <SortingIcon column="clicks" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
+            </th>
             <th
               className={classNames('sortable', getClassNames('amount', isDescending))}
               onClick={() => handleSortBy('amount')}
-            >Amount</th>
+            >
+              Amount <SortingIcon column="amount" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
+            </th>
             <th
               className={classNames('sortable', getClassNames('quantity', isDescending))}
               onClick={() => handleSortBy('quantity')}
-            >Quantity</th>
+            >
+              Quantity <SortingIcon column="quantity" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
+            </th>
           </tr>
         </thead>
         <tbody>
