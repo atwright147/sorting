@@ -12,6 +12,12 @@ export const compare = (a, b, direction) => {
   return a > b;
 };
 
+// Notes:
+// If comparator(a, b) returns:
+//   A negative number < 0: then a is placed before b
+//   A positive number > 0: then b is placed before a
+//   Zero 0: then the position of the compared elements doesn't change
+
 export const sortData = (dataToSort, key = 'quantity', direction = 'desc') => {
   const TOTAL_INDICATOR = '$total';
 
@@ -35,7 +41,6 @@ export const sortData = (dataToSort, key = 'quantity', direction = 'desc') => {
         return -1;
       } else if (b.category === TOTAL_INDICATOR) {
         return 1;
-      // } else if (categoryTotals[a.category] > categoryTotals[b.category]) {
       } else if (compare(categoryTotals[a.category], categoryTotals[b.category], direction)) {
         return DOWN;
       } else {
