@@ -43,23 +43,20 @@ export const OrderSummary = () => {
           <tr>
             <th>Category</th>
             <th>Item Name</th>
-            <th
-              className={classNames('sortable', getClassNames('clicks', isDescending))}
-              onClick={() => handleSortBy('clicks')}
-            >
-              Clicks <SortingIcon column="clicks" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
+            <th className={classNames('sortable', getClassNames('clicks', isDescending))}>
+              <button aria-label="Sort by clicks" className="disguised" onClick={() => handleSortBy('clicks')}>
+                Clicks <SortingIcon column="clicks" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
+              </button>
             </th>
-            <th
-              className={classNames('sortable', getClassNames('amount', isDescending))}
-              onClick={() => handleSortBy('amount')}
-            >
-              Amount <SortingIcon column="amount" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
+            <th className={classNames('sortable', getClassNames('amount', isDescending))} >
+              <button aria-label="Sort by amount" className="disguised" onClick={() => handleSortBy('amount')}>
+                Amount <SortingIcon column="amount" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
+              </button>
             </th>
-            <th
-              className={classNames('sortable', getClassNames('quantity', isDescending))}
-              onClick={() => handleSortBy('quantity')}
-            >
-              Quantity <SortingIcon column="quantity" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
+            <th className={classNames('sortable', getClassNames('quantity', isDescending))}>
+              <button aria-label="Sort by quantity" className="disguised" onClick={() => handleSortBy('quantity')}>
+                Quantity <SortingIcon column="quantity" sortColumn={sortKey} direction={isDescending ? 'desc' : 'asc'} />
+              </button>
             </th>
           </tr>
         </thead>
