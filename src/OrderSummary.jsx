@@ -4,8 +4,6 @@ import { SortingIcon } from './components/SortingIcon/SortingIcon';
 import './OrderSummary.css';
 import { fetchData, sortData } from './sort';
 
-let data;
-
 export const OrderSummary = () => {
   const [items, setItems] = useState([]);
   const [sortKey, setSortKey] = useState('quantity');
@@ -13,7 +11,7 @@ export const OrderSummary = () => {
 
   useEffect(() => {
     (async () => {
-      data = await fetchData('https://mocki.io/v1/a7618665-b8e2-4304-91e5-e35b2ca5607d');
+      const data = await fetchData('https://mocki.io/v1/a7618665-b8e2-4304-91e5-e35b2ca5607d');
       setItems(sortData(data, sortKey));
     })();
   // eslint-disable-next-line react-hooks/exhaustive-deps
